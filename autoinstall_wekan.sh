@@ -16,8 +16,6 @@ elif [ $? -ne "0" ]; then
 	apt-get update && apt-get install -y mongodb-server make g++ gcc build-essential libssl-dev
 fi
 
-# wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.30.0/install.sh | bash
-
 # Check if curl exists
 which curl > /dev/null
 # If curl does not exist, install it
@@ -26,8 +24,7 @@ if [ $? -ne "0" ]; then
     apt-get install curl
 fi
 
-#curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.0/install.sh | bash
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 
 source ~/.nvm/nvm.sh
 source ~/.profile
@@ -36,7 +33,7 @@ source ~/.bashrc
 # Make node, npm, available to all users
 # n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin; sudo cp -r $n/{bin,lib,share} /usr/local
 
-NODE_VERSION="v0.10.40"
+NODE_VERSION="v9.1.0"
 
 nvm install $NODE_VERSION
 nvm use $NODE_VERSION
@@ -45,10 +42,14 @@ nvm alias default $NODE_VERSION
 npm install -g npm
 npm install forever -g
 
+# install wekan Version
+WEKAN_VERSION="0.63"
+echo ""
+echo "Downloading wekan v$WEKAN_VERSION ..."
 cd
-wget https://github.com/wekan/wekan/releases/download/v0.10.1/wekan-0.10.1.tar.gz
+wget https://github.com/wekan/wekan/releases/download/v0.63/wekan-$WEKAN_VERSION.tar.gz
 rm -rf ~/bundle
-tar xzvf wekan-0.10.1.tar.gz
+tar xzvf wekan-$WEKAN_VERSION.tar.gz
 
 cd bundle/programs/server && npm install
 
@@ -240,4 +241,6 @@ menu
 ;;
 esac
 }
+
+#Show Menu
 menu
